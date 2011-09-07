@@ -1,0 +1,6 @@
+*.pyc
+*~
+private.*
+populate.py
+test.db*
+publish.sh
