@@ -1,18 +1,9 @@
-$prog $version
-$release_date
-Copyright (c) $yearrange $author ($author_email)
-
-$url
-
-
-ABSTRACT
-========
 Nanny Timesheet is a Python/Django website for time tracking and payroll
 calculations for a two-family nanny share.
 
-It uses the GPL version of the DHTMLX Scheduler
-(http://dhtmlx.com/docs/products/dhtmlxScheduler/index.shtml) for AJAXian
-goodness.
+It uses the GPL version of the `DHTMLX Scheduler`__ for AJAXian goodness.
+
+__ http://dhtmlx.com/docs/products/dhtmlxScheduler/index.shtml
 
 
 PREREQUISITES

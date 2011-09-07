@@ -1,0 +1,9 @@
+$prog $version
+$release_date
+Copyright (c) $yearrange $author ($author_email)
+
+$url
+
+
+ABSTRACT
+========
