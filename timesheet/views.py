@@ -136,7 +136,7 @@ class KidStats(object):
             self.combo.extend(combinations(kids, i+1))
             self.build[i] = {'name': kid.person.first_name,
                              'id': kid.id,
-                             'gross': Decimal("0.0"),
+                             'gross': 0.0,
                              'hours': 0.0,
                              'shared_hours': 0.0,
                              'details': []
@@ -174,7 +174,7 @@ class KidStats(object):
                         if kid in p:
                             d = dict(detail)
                             d['rate'] = kid_rate
-                            d['gross'] = round(Decimal(str(detail['hours'] * kid_rate)))
+                            d['gross'] = detail['hours'] * kid_rate
                             self.build[i]['details'].append((ev.start_date, d))
                             self.build[i]['gross'] += d['gross']
                             self.build[i]['hours'] += d['hours']
@@ -203,10 +203,10 @@ class KidStats(object):
                 w4 = W4.get_current(details[0][0])
                 tax = TaxYear(details[0][0], entry['gross'], w4, w4)
                 
-                entry['net'] = entry['gross'] - tax.fed.employee_taxes - tax.cal.employee_taxes
+                entry['net'] = tax.net
                 entry['tax'] = tax
-                self.total_net += entry['net']
-                self.total_gross += entry['gross']
+                self.total_net += tax.net
+                self.total_gross += tax.gross
                 entry['alone_hours'] = entry['hours'] - entry['shared_hours']
                 self.kid_details.append(entry)
         if DEBUG:
@@ -459,10 +459,10 @@ def get_week_summary_template_params(today, kids):
                     print "FOUND PAYCHECK!!!"
                     print k['paychecks'].append(p)
                     ytd['kid'][index]['takehome'] += p.amount
-            ytd['kid'][index]['gross'] += k['gross']
+            ytd['kid'][index]['gross'] += k['tax'].gross
             ytd['kid'][index]['fed'] += k['tax'].fed.employee_taxes
             ytd['kid'][index]['cal'] += k['tax'].cal.employee_taxes
-            ytd['kid'][index]['net'] += k['net']
+            ytd['kid'][index]['net'] += k['tax'].net
             
         # exclude weeks at the beginning of the year if no work done
         if ytd['gross'] > 0:

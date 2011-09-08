@@ -111,7 +111,7 @@ class Event(models.Model):
         else:
             hours = 0
         rate = rates[len(kid_subset)]
-        gross = round(Decimal(str(hours * rate)))
+        gross = hours * rate
         return hours, rate, gross
 
     def add_kids_by_csv(self, csv):

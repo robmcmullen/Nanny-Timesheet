@@ -5,11 +5,11 @@
 <h2 class="popright">Sylvia's Breakdown</h2>
 <div class="popright">
 <table>
-<tr><th>Day</th><th>Hours</th><th>Rate</th><th>Gross</th></tr>
+<tr><th>Day</th><th>Hours</th><th>Rate</th></tr>
 {% for detail in details %}
-<tr><td> {{ detail.day|date:"D M j" }} </td><td> {{ detail.hours }} </td><td> {{ detail.rate }} </td><td> {{ detail.gross }} </td></tr>
+<tr><td> {{ detail.day|date:"D M j" }} </td><td> {{ detail.hours }} </td><td> {{ detail.rate }} </td></tr>
 {% endfor %}
-<tr><td><b>TOTAL</b></th><td> {{ total_hours }} </td><td></td><td> {{ total_gross }} </td></tr>
+<tr><td><b>TOTAL</b></th><td> {{ total_hours }} </td></tr>
 </table>
 </div>
 <ul>

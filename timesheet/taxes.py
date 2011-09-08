@@ -146,7 +146,9 @@ class CalTax2011Weekly(CalTax):
 
 class TaxYear(object):
     def __init__(self, date, gross, w4, de4):
-        self.fed = FederalTax2011Weekly(gross, w4)
-        self.cal = CalTax2011Weekly(gross, de4)
-        
-    
+        if not isinstance(gross, Decimal):
+            gross = Decimal("%s" % gross)
+        self.gross = round(gross)
+        self.fed = FederalTax2011Weekly(self.gross, w4)
+        self.cal = CalTax2011Weekly(self.gross, de4)
+        self.net = self.gross - self.fed.employee_taxes - self.cal.employee_taxes
