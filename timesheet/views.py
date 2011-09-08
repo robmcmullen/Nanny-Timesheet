@@ -231,9 +231,11 @@ def get_monthly_stats(label, events):
             }
 
 def get_events_range(start_date, end_date):
-    print "%s -> %s" % (start_date, end_date)
+    if DEBUG:
+        print "%s -> %s" % (start_date, end_date)
     events = Event.objects.filter(start_date__gte=start_date).filter(end_date__lte=end_date).exclude(text__icontains="holiday").order_by('start_date')
-    print "\n".join([str(e) for e in events])
+    if DEBUG:
+        print "\n".join([str(e) for e in events])
     return events
 
 # Gets HTML summary of current activity
@@ -311,9 +313,7 @@ def pay(request):
 # Process payment form
 @login_required
 def pay_process(request):
-    print("pay_process!!!")
     p = request.POST
-    print(p)
     raw = p
     form = PaymentForm(p)
     kid = Kid.objects.get(pk=int(raw['kid_id']))
@@ -440,7 +440,7 @@ def get_week_summary_template_params(today, kids):
     for week in iter_weeks(today.year):
         events = get_events_range(week[0], week[6] + timedelta(1))
         paychecks = Paycheck.get_range(week[0], week[6])
-        print paychecks
+        #print paychecks
         stats = get_weekly_stats("stats", events, kids, True)
         entry = {'start_day': week[0],
                  'end_day': week[6],
@@ -453,11 +453,11 @@ def get_week_summary_template_params(today, kids):
             k = stats['kid_details'][index]
             k['paychecks'] = []
             for p in paychecks:
-                print "Paycheck: %s" % str((p.paid_for, p.amount, p.pay_date))
-                print "Kid: %s" % kids[index]
+                #print "Paycheck: %s" % str((p.paid_for, p.amount, p.pay_date))
+                #print "Kid: %s" % kids[index]
                 if p.paid_for == kids[index]:
-                    print "FOUND PAYCHECK!!!"
-                    print k['paychecks'].append(p)
+                    #print "FOUND PAYCHECK!!!"
+                    k['paychecks'].append(p)
                     ytd['kid'][index]['takehome'] += p.amount
             ytd['kid'][index]['gross'] += k['tax'].gross
             ytd['kid'][index]['fed'] += k['tax'].fed.employee_taxes
