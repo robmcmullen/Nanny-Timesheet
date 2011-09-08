@@ -23,8 +23,8 @@
     <tr>
         <td>{{ week.start_day|date:"M" }}&nbsp;{{ week.start_day|date:"j" }}</td>
         <td>{{ week.end_day|date:"M" }}&nbsp;{{ week.end_day|date:"j" }}</td>
-{% if week.stats.kid_details %}
-{% for kid in week.stats.kid_details %}
+{% if week.kid_stats.kid_details %}
+{% for kid in week.kid_stats.kid_details %}
 <td>{{ kid.tax.gross }}</td>
 <td>{{ kid.tax.fed.income }}</td>
 <td>{{ kid.tax.fed.employee_ss }}</td>
@@ -42,9 +42,9 @@
 <td colspan=8></td>
 <td colspan=8></td>
 {% endif %}
-        <td>{{ week.stats.total_hours }}</td>
-        <td>{{ week.stats.total_gross }}</td>
-        <td>{{ week.stats.total_net }}</td>
+        <td>{{ week.kid_stats.total_hours }}</td>
+        <td>{{ week.kid_stats.total_gross }}</td>
+        <td>{{ week.kid_stats.total_net }}</td>
         </tr>
 {% endfor %}
 <tr><th colspan=2>Totals:</th>

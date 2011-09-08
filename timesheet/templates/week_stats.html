@@ -6,25 +6,25 @@
 <div class="popright">
 <table>
 <tr><th>Day</th><th>Hours</th><th>Rate</th></tr>
-{% for detail in details %}
+{% for detail in kid_stats.breakdown_details %}
 <tr><td> {{ detail.day|date:"D M j" }} </td><td> {{ detail.hours }} </td><td> {{ detail.rate }} </td></tr>
 {% endfor %}
-<tr><td><b>TOTAL</b></th><td> {{ total_hours }} </td></tr>
+<tr><td><b>TOTAL</b></th><td> {{ kid_stats.total_hours }} </td></tr>
 </table>
 </div>
 <ul>
-<li>{{ total_hours }} Hours
+<li>{{ kid_stats.total_hours }} Hours
 <ul>
-{% for kid in kid_hours %}
+{% for kid in kid_stats.hours %}
 <li>{{ kid.1 }} {{ kid.0 }}
 {% endfor %}
 </ul>
-<li>Gross = ${{ total_gross|floatformat:2 }}
-<li>Net = ${{ total_net|floatformat:2 }}
+<li>Gross = ${{ kid_stats.total_gross|floatformat:2 }}
+<li>Net = ${{ kid_stats.total_net|floatformat:2 }}
 </ul>
 </div>
 
-{% for kid in kid_details %}
+{% for kid in kid_stats.kid_details %}
 <div class="breakdown">
 <h2 class="popright">{{ kid.name }}'s Breakdown</h2>
 <div class="popright">

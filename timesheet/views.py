@@ -218,12 +218,7 @@ def get_weekly_stats(label, events, kids=None, zero=False):
     ks = KidStats(kids, events, zero)
     
     return {'duration': label,
-            'total_hours': ks.total_hours,
-            'kid_hours': ks.hours,
-            'total_gross': round(ks.total_gross),
-            'total_net': round(ks.total_net),
-            'details': ks.breakdown_details,
-            'kid_details': ks.kid_details,
+            'kid_stats': ks,
             }
 
 def get_monthly_stats(label, events):
@@ -444,13 +439,14 @@ def get_week_summary_template_params(today, kids):
         stats = get_weekly_stats("stats", events, kids, True)
         entry = {'start_day': week[0],
                  'end_day': week[6],
-                 'stats': stats,
+                 'kid_stats': stats['kid_stats'],
                  'paychecks': paychecks,
                  }
-        ytd['gross'] += stats['total_gross']
-        ytd['net'] += stats['total_net']
-        for index in range(len(stats['kid_details'])):
-            k = stats['kid_details'][index]
+        ks = stats['kid_stats']
+        ytd['gross'] += ks.total_gross
+        ytd['net'] += ks.total_net
+        for index in range(len(ks.kid_details)):
+            k = ks.kid_details[index]
             k['paychecks'] = []
             for p in paychecks:
                 #print "Paycheck: %s" % str((p.paid_for, p.amount, p.pay_date))
