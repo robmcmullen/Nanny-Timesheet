@@ -53,7 +53,7 @@ class FederalTax(TaxBase):
     
     def __init__(self, gross, w4):
         TaxBase.__init__(self, gross)
-        self.w4_allowances = w4.allowances
+        self.allowances = w4.allowances
         self.income = Decimal("0.00")
         self.employer_ss = Decimal("0.00")
         self.employee_ss = Decimal("0.00")
@@ -73,7 +73,7 @@ class FederalTax(TaxBase):
         self.net = self.gross - self.employee_taxes
     
     def calc_taxible(self):
-        allowances = self.one_allowance * self.w4_allowances
+        allowances = self.one_allowance * self.allowances
         return round(max(self.gross - allowances, Decimal("0.00")))
 
     

@@ -32,7 +32,7 @@ class FederalTaxTestWeekly(CurrencyTest):
         w4 = MockW4()
         fed = FederalTax2011Weekly(Decimal("1000"), w4)
         self.assertEqual(fed.tax_year, 2011)
-        self.assertEqual(fed.w4_allowances, 1)
+        self.assertEqual(fed.allowances, 1)
         self.assertEqual(fed.gross, Decimal("1000"))
         self.assertEqual(fed.one_allowance, Decimal("71.15"))
         #self.assertAlmostEqual(fed.one_allowance, 71.15, 2)
@@ -55,7 +55,7 @@ class FederalTaxTestWeekly(CurrencyTest):
         for gross, taxible, i, ss, m, fed_net, net in rows:
             w4 = MockW4(2)
             fed = FederalTax2011Weekly(gross, w4)
-            self.assertEqual(fed.w4_allowances, 2)
+            self.assertEqual(fed.allowances, 2)
             self.assertCurrency(fed.gross, gross)
             self.assertCurrency(fed.taxible, taxible)
             self.assertCurrency(fed.employee_ss, ss)
