@@ -1,0 +1,39 @@
+<html>
+<head>
+    <title>{% block title %}{% endblock %}</title>
+<link rel="stylesheet" href="/static/daycare.css" type="text/css" media="screen" title="no title" charset="utf-8">
+
+<style type="text/css" media="screen">
+        html, body{
+                margin:0px;
+                padding:0px;
+                height:100%;
+        }       
+</style>
+
+</head>
+
+{% block scripts %}{% endblock %}
+
+<body {% block onload %}{% endblock %}>
+<div id="header">
+{% if user.is_active %}
+<b>Daycare Timesheet</b> -- Logged in as {{ user.email }}.  <a href="/auth/manage/">[Manage account]</a> <a href="/logout/">[Logout]</a>
+<br>
+<a href="/">[Home]</a>
+<a href="/timesheet/paychecks">[YTD Paychecks]</a>
+<a href="/timesheet/ytd">[YTD Tax Summary]</a>
+{% else %}
+Welcome {{ user.email }}.  Must be authenticated by the administrator before using the scheduler
+{% endif %}
+</div>
+<div id="main_container" style='height:90%;'>
+{% if user.is_active %}
+
+{% block active %}{% endblock %}
+
+{% endif %}
+</div>
+</body>
+
+</html>

@@ -1,0 +1,70 @@
+<h1>Summary for {{ duration }}</h1>
+<h1>{{ start_date|date:"M j" }} - {{ end_date|date:"M j" }}</h1>
+
+<div class="breakdown">
+<h2 class="popright">Sylvia's Breakdown</h2>
+<div class="popright">
+<table>
+<tr><th>Day</th><th>Hours</th><th>Rate</th><th>Gross</th></tr>
+{% for detail in details %}
+<tr><td> {{ detail.day|date:"D M j" }} </td><td> {{ detail.hours }} </td><td> {{ detail.rate }} </td><td> {{ detail.gross }} </td></tr>
+{% endfor %}
+<tr><td><b>TOTAL</b></th><td> {{ total_hours }} </td><td></td><td> {{ total_gross }} </td></tr>
+</table>
+</div>
+<ul>
+<li>{{ total_hours }} Hours
+<ul>
+{% for kid in kid_hours %}
+<li>{{ kid.1 }} {{ kid.0 }}
+{% endfor %}
+</ul>
+<li>Gross = ${{ total_gross|floatformat:2 }}
+<li>Net = ${{ total_net|floatformat:2 }}
+</ul>
+</div>
+
+{% for kid in kid_details %}
+<div class="breakdown">
+<h2 class="popright">{{ kid.name }}'s Breakdown</h2>
+<div class="popright">
+<table>
+<tr><th>Day</th><th>Hours</th><th>Rate</th><th>Gross</th></tr>
+{% for detail in kid.details %}
+<tr><td> {{ detail.day|date:"D M j" }} </td><td> {{ detail.hours }} </td><td> {{ detail.rate }} </td><td> {{ detail.gross }} </td></tr>
+{% endfor %}
+<tr><td><b>TOTAL</b></th><td> {{ kid.hours }} </td><td></td><td> {{ kid.gross }} </td></tr>
+</table>
+<ul>
+<li>Gross = ${{ kid.gross|floatformat:2 }}
+<li>Federal Taxes:
+<ul>
+<li>Income: {{ kid.tax.fed.income|floatformat:2 }}
+<li>Soc. Sec.: {{ kid.tax.fed.employee_ss|floatformat:2 }}
+<li>Medicare: {{ kid.tax.fed.employee_medicare|floatformat:2 }}
+</ul>
+<li>Cal Taxes:
+<ul>
+<li>PIT: {{ kid.tax.cal.pit|floatformat:2 }}
+<li>SDI: {{ kid.tax.cal.sdi|floatformat:2 }}
+</ul>
+<li>Net = ${{ kid.net|floatformat:2 }}
+</ul>
+</div>
+<ul>
+<li>{{ kid.hours }} Hours
+<ul>
+<li>{{ kid.alone_hours }} Alone
+<li>{{ kid.shared_hours }} Shared
+</ul>
+<li>Gross = ${{ kid.gross|floatformat:2 }}
+<li>Fed Tax = ${{ kid.tax.fed.employee_taxes|floatformat:2 }}
+<li>Cal Tax = ${{ kid.tax.cal.employee_taxes|floatformat:2 }}
+<li>Net = ${{ kid.net|floatformat:2 }}
+</ul>
+
+<a href="javascript:void(0)" onclick="pay_for_kid({{ kid.id }}, {{ kid.gross }}, {{ kid.net }}, '{{ start_date.isoformat }}', '{{ end_date.isoformat }}')">Enter payment record</a>
+</div>
+
+{% endfor %}
+

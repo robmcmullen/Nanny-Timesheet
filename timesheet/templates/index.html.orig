@@ -1,0 +1,227 @@
+<html>
+<head>
+    <title>Scheduler</title>
+</head>
+
+<script type="text/javascript" src="/static/jquery.js"></script>
+<script type="text/javascript" src="/static/jquery-django.js"></script>
+<script type="text/javascript" src="/static/json2.js"></script>
+<script type="text/javascript" src="/static/dhtmlxscheduler.js" charset="utf-8"></script>
+<script type="text/javascript" src="/static/dhtmlxscheduler_editors.js" charset="utf-8"></script>
+<script type="text/javascript" src="/static/dhtmlxscheduler_multiselect.js" charset="utf-8"></script>
+
+<link rel="stylesheet" href="/static/dhtmlxscheduler.css" type="text/css" media="screen" title="no title" charset="utf-8">
+<link rel="stylesheet" href="/static/daycare.css" type="text/css" media="screen" title="no title" charset="utf-8">
+ 
+<style type="text/css" media="screen">
+        html, body{
+                margin:0px;
+                padding:0px;
+                height:100%;
+                overflow:hidden;
+        }       
+</style>
+
+<script type="text/javascript" charset="utf-8">
+        last_object = null;
+        function init() {
+                scheduler.config.multi_day = true;
+                scheduler.config.details_on_create = true;
+                scheduler.config.details_on_dblclick = true;
+                scheduler.config.xml_date="%Y-%m-%d %H:%i";
+                scheduler.config.default_date="%M %j %Y";
+                scheduler.config.start_on_monday = false;
+                scheduler.config.scroll_hour = 7;
+                scheduler.config.time_step = 15;
+                scheduler.config.day_date = "%D, %M %j";
+                scheduler.config.hour_date = "%h:%i%a";
+                scheduler.xy.menu_width = 10;
+                scheduler.init('scheduler_here',null,"week");
+                scheduler.setLoadMode("month");
+                scheduler.load("/timesheet/all", "json");
+                // add the CSRF_Token that the modified scheduler javascript
+                // uses in the XMLHTTPRequest
+                scheduler.config.CSRF_Token = "{{ csrf_token }}" ;
+
+                var dp = new dataProcessor("/timesheet/update");
+                dp.init(scheduler);
+
+/* CSS modifier function to allow styling of the event based on the content */
+scheduler.templates.event_class=function(start,end,event){
+    if (event && event.kids) {
+        if (event.kids.indexOf(",") >= 0) {
+            return "many_event";
+        }
+        return "kid" + event.kids + "_event";
+    }
+}
+
+/* Modified header to shorten the pixel width of the time range as much as possible */
+function event_header_date(date) {
+    return "" + ((date.getHours()+11)%12+1) + ":" + scheduler.date.to_fixed(date.getMinutes());
+}
+scheduler.templates.event_header=function(start,end,event){
+    return event_header_date(start)+"-"+event_header_date(end);
+}
+
+/* Populate the multi-select list using Django templates */
+var kids = [
+{% for kid in kids %}
+	{ key: {{ kid.id }}, label: "{{ kid.person.first_name }}" },
+{% endfor %}
+];
+var kid_lookup = {
+{% for kid in kids %}
+	{{ kid.id }}: "{{ kid.person.first_name }}",
+{% endfor %}
+};
+//console.debug(kid_lookup);
+
+scheduler.templates.event_text=function(start,end,event){
+    var text = "";
+    if (event.kids && event.kids != "0") {
+        //console.debug(event.kids);
+        ids = event.kids.split(",");
+        //console.debug("ids = " + ids);
+        if (ids.length == 1) {
+            text += "<b>" + kid_lookup[ids[0]] + " only</b><br>";
+        }
+        else {
+            for (var i in ids) {
+                //console.debug("loop: " + i);
+                text += "<b>" + kid_lookup[ids[i]] + "</b><br>";
+            }
+        }
+        text += "<br>";
+    }
+    return text + event.text;
+}
+
+scheduler.templates.event_bar_text=function(start,end,event){
+    var text = "";
+    if (event.kids && event.kids != "0") {
+        //console.debug(event.kids);
+        ids = event.kids.split(",");
+        //console.debug("ids = " + ids);
+        if (ids.length == 1) {
+            text += kid_lookup[ids[0]];
+        }
+        else {
+            var sep = "";
+            for (var i in ids) {
+                //console.debug("loop: " + i);
+                text += sep + kid_lookup[ids[i]];
+                sep = "+";
+            }
+        }
+        text += " ";
+    }
+    return text + event.text;
+}
+
+scheduler.locale.labels.section_family = "Nanny For:"; 
+scheduler.locale.labels.section_description = "Any comments about the day?  (Optional)"; 
+scheduler.locale.labels.new_event = ""; 
+scheduler.config.lightbox.sections=[	
+    { name:"family", height: 72, options: kids, map_to:"kids", type:"multiselect",vertical: true },        
+    { name:"description", height:30, map_to:"text", type:"textarea", focus:true },
+    { name:"time", height:72, type:"time", map_to:"auto"}
+];
+
+function update_stats(event_id, event_object) {
+    s = scheduler.getState();
+    $.ajax({
+        url: '/timesheet/stats/',
+        type: 'POST',
+        contentType: 'application/json; charset=utf-8',
+        data: JSON.stringify(s),
+        dataType: 'text',
+        success: function(result) {
+            //console.debug(result);
+            $("#stats").html(result);
+
+            // set up javascript on new elements to provide pop-right behavior
+            $("div.breakdown").mouseover(function(ev) {
+                var pos = $(this).offset();
+                var width = $(this).width();
+                var box = $(this).find("div.popright")
+                var top = pos.top
+                if(top + box.height() > $(window).height()){
+                    top = $(window).height() - box.height();
+                }
+                box.css( { "left": (pos.left + width) + "px", "top":top + "px" } ).show();
+            }).mouseout(function(ev) {
+                $(this).find("div.popright").hide();
+            });
+        }
+    });
+}
+
+scheduler.attachEvent("onEventAdded", function(id,ev){
+    //$("#stats").html("onEventAdded " + id);
+    update_stats(id, ev);
+});
+scheduler.attachEvent("onEventChanged", function(id,ev){
+    //$("#stats").html("onEventChanged " + id);
+    update_stats(id, ev);
+});
+scheduler.attachEvent("onEventDeleted", function(id,ev){
+    //$("#stats").html("onEventDeleted " + id);
+    update_stats(id, ev);
+});
+scheduler.attachEvent("onViewChange", function(mode, date){
+    //$("#stats").html("onViewChange " + mode);
+    update_stats(null, null);
+});
+
+        update_stats(null, null);
+          }
+
+function pay_for_kid(kid_id, gross, net, start_date, end_date) {
+    s = {'kid_id': kid_id, 'gross': gross, 'net': net, 'target_id': '#stats',
+        'start_date': start_date, 'end_date': end_date};
+    $.ajax({
+        url: '/timesheet/pay/',
+        type: 'GET',
+        contentType: 'application/json; charset=utf-8',
+        data: s,
+        dataType: 'text',
+        success: function(result) {
+            //console.debug(result);
+            $("#stats").html(result);
+        }
+    });
+}
+</script>
+
+<body onload="init();">
+<div id="header">
+{% if user.is_active %}
+<b>Daycare Timesheet</b> -- Logged in as {{ user.email }}.  <a href="/auth/manage/">[Manage account]</a> <a href="/logout/">[Logout]</a>
+</div>
+<div id="main_container" style='height:90%;'>
+        <div id="stats">
+            Stats go here...
+        </div>
+        <div id="scheduler_here" class="dhx_cal_container">
+                <div class="dhx_cal_navline">
+                        <div class="dhx_cal_prev_button">&nbsp;</div>
+                        <div class="dhx_cal_next_button">&nbsp;</div>
+                        <div class="dhx_cal_today_button"></div>
+                        <div class="dhx_cal_date"></div>
+                        <div class="dhx_cal_tab" name="day_tab" style="right:204px;"></div>
+                        <div class="dhx_cal_tab" name="week_tab" style="right:140px;"></div>
+                        <div class="dhx_cal_tab" name="month_tab" style="right:76px;"></div>
+                </div>
+                <div class="dhx_cal_header">
+                </div>
+                <div class="dhx_cal_data">
+                </div>
+        </div>
+{% else %}
+Welcome {{ user.email }}.  Must be authenticated before using the scheduler
+{% endif %}
+</div>
+</body>
+
+</html>

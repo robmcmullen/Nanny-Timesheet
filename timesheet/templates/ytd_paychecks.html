@@ -1,0 +1,59 @@
+{% extends "scheduler_base.html" %}
+
+{% block title %}Paychecks for {{ year }}{% endblock %}
+
+{% block active %}
+<h2>Employee YTD Paycheck Summary</h2>
+
+<table class=summary>
+<tr><th colspan=2>Week</th>
+{% for kid in kids %}
+<th colspan=4>{{ kid.person.first_name }}</th>
+{% endfor %}
+<th colspan=3>Total</th>
+</tr>
+
+<tr><th>Start</th><th>End</th>
+{% for kid in kids %}
+<th>Gross</th><th>Net</th><th>Pay Date</th><th>Amount</th>
+{% endfor %}
+<th>Hours</th><th>Gross</th><th>Net</th>
+</tr>
+{% for week in week_list %}
+    <tr>
+        <td>{{ week.start_day|date:"M" }}&nbsp;{{ week.start_day|date:"j" }}</td>
+        <td>{{ week.end_day|date:"M" }}&nbsp;{{ week.end_day|date:"j" }}</td>
+{% if week.stats.kid_details %}
+    {% for kid in week.stats.kid_details %}
+    <td>{{ kid.gross }}</td>
+    <td>{{ kid.net }}</td>
+        {% if kid.paychecks %}
+            {% for paycheck in kid.paychecks %}
+            <td>{{ paycheck.pay_date|date:"M" }}&nbsp;{{ paycheck.pay_date|date:"j" }}</td>
+            <td>{{ paycheck.amount }}</td>
+            {% endfor %}
+        {% else %}
+            <td colspan=2></td>
+        {% endif %}
+
+    {% endfor %}
+{% else %}
+<td colspan=4></td>
+<td colspan=4></td>
+{% endif %}
+        <td>{{ week.stats.total_hours }}</td>
+        <td>{{ week.stats.total_gross }}</td>
+        <td>{{ week.stats.total_net }}</td>
+        </tr>
+{% endfor %}
+<tr><th colspan=2>Totals:</th>
+{% for kid in ytd.kid %}
+<td>{{ kid.gross }}</td>
+<td>{{ kid.net }}</td>
+<td colspan=2>{{ kid.takehome }}</td>
+{% endfor %}
+<th></th><th>{{ ytd.gross }}</th><th>{{ ytd.net}}</th>
+</tr>
+</table>
+
+{% endblock %}
