@@ -429,7 +429,7 @@ def iter_weeks(year):
             yield week
             last_sunday = week[0]
 
-# Gets HTML summary of hours and taxes
+# Gets week-by-week list of payments and taxes
 def get_week_summary_template_params(today, kids):
     week_list = []
     ytd = {
@@ -480,7 +480,7 @@ def get_week_summary_template_params(today, kids):
         }
     return template_params
 
-# Gets HTML summary of housr and taxes
+# Gets HTML summary of hours and taxes
 @login_required
 def ytd(request):
     today = date.today()
