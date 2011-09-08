@@ -25,16 +25,16 @@
         <td>{{ week.end_day|date:"M" }}&nbsp;{{ week.end_day|date:"j" }}</td>
 {% if week.stats.kid_details %}
 {% for kid in week.stats.kid_details %}
-<td>{{ kid.gross }}</td>
+<td>{{ kid.tax.gross }}</td>
 <td>{{ kid.tax.fed.income }}</td>
 <td>{{ kid.tax.fed.employee_ss }}</td>
 <td>{{ kid.tax.fed.employee_medicare }}</td>
 <td>{{ kid.tax.cal.pit }}</td>
 <td>{{ kid.tax.cal.sdi }}</td>
-<td>{{ kid.net }}</td>
+<td>{{ kid.tax.net }}</td>
 <td>
 {% for paycheck in kid.paychecks %}
-{{ paycheck.pay_date|date:"M" }}&nbsp;{{ paycheck.pay_date|date:"j" }}:&nbsp;{{ paycheck.amount }}
+{{ paycheck.pay_date|date:"M" }}&nbsp;{{ paycheck.pay_date|date:"j" }}:&nbsp;{{ paycheck.amount|floatformat:2 }}
 {% endfor %}
 </td>
 {% endfor %}

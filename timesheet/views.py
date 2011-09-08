@@ -220,8 +220,8 @@ def get_weekly_stats(label, events, kids=None, zero=False):
     return {'duration': label,
             'total_hours': ks.total_hours,
             'kid_hours': ks.hours,
-            'total_gross': ks.total_gross,
-            'total_net': ks.total_net,
+            'total_gross': round(ks.total_gross),
+            'total_net': round(ks.total_net),
             'details': ks.breakdown_details,
             'kid_details': ks.kid_details,
             }
