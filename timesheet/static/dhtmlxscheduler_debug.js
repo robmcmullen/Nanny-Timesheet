@@ -204,6 +204,7 @@ dtmlXMLLoaderObject.prototype.loadXML=function(filePath, postMode, postVars, rpc
 		this.xmlDoc.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 		
 	this.xmlDoc.setRequestHeader("X-Requested-With","XMLHttpRequest");
+	this.xmlDoc.setRequestHeader("X-CSRFToken", scheduler.config.CSRF_Token);
 	this.xmlDoc.send(null||postVars);
 
 	if (!this.async)
