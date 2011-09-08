@@ -1,0 +1,154 @@
+#header {
+    width: 100%;
+    height: 10%;
+    padding: 0;
+}
+
+#main_container {
+    width: 100%;
+    height: 90%;
+    padding: 0;
+}
+
+#scheduler_here {
+    width: 80%;
+    height: 100%;
+    padding: 0;
+    float: left;
+}
+
+#stats {
+    width: 20%;
+    height: 100%;
+    padding: 0;
+    float: left;
+    font-size: .8em;
+}
+
+#stats table {
+    font-size: .8em;
+}
+
+#stats table th {
+    text-align: left;
+}
+
+#stats p {
+    padding: 0;
+    margin: 0;
+}
+
+#stats h1 {
+    padding: 0;
+    margin: 0;
+    font-size: 1em;
+}
+
+#stats h2 {
+    padding: 0;
+    margin: 10px 0 0 0;
+    font-size: .9em;
+}
+
+#stats h2.popright {
+    padding: 0;
+    margin: 10px 0 0 0;
+    font-size: .8em;
+    background-image: url(/static/right.png);
+    background-position: right;
+    background-repeat: no-repeat;
+}
+
+
+#stats ul {
+    font-size: .9em;
+}
+
+div.popright {
+    display: none;
+    position: absolute;
+/*    left: 20%;*/
+/*    top: 10%;*/
+    background-color: #F2F5A9;
+    border: 1px solid;
+    z-index: 20000;
+}
+
+/*div.breakdown:hover div.popright {*/
+/*    display: block;*/
+/*}*/
+
+div.breakdown:hover {
+    background-color: #F2F5A9;
+}
+
+
+table.summary {
+	border-width: 1px;
+	border-spacing: 2px;
+	border-style: solid;
+	border-color: gray;
+	border-collapse: collapse;
+	background-color: white;
+	overflow: scroll;
+}
+table.summary th {
+	border-width: 1px;
+	padding: 3px;
+	border-style: solid;
+	border-color: gray;
+	background-color: white;
+}
+table.summary td {
+	border-width: 1px;
+	padding: 3px;
+	border-style: solid;
+	border-color: gray;
+	background-color: white;
+        text-align: right;
+}
+
+/*event in day or week view*/
+.dhx_cal_event.kid1_event div{
+        background-color:#CCFFCC !important; 
+        color:black !important;
+}
+/*multi-day event in month view*/
+.dhx_cal_event_line.kid1_event{
+        background-color:#7a997a !important; 
+        color:black !important;
+}
+/*event with fixed time, in month view*/
+.dhx_cal_event_clear.kid1_event{
+        color:#7a997a !important;
+}
+
+/*event in day or week view*/
+.dhx_cal_event.kid2_event div{
+        background-color:#FFB894 !important; 
+        color:black !important;
+}
+/*multi-day event in month view*/
+.dhx_cal_event_line.kid2_event{
+        background-color:#996e59 !important; 
+        color:black !important;
+}
+/*event with fixed time, in month view*/
+.dhx_cal_event_clear.kid2_event{
+        color:#996e59 !important;
+}
+
+/*event in day or week view*/
+.dhx_cal_event.many_event div{
+        background-color:#CC99FF !important; 
+        color:black !important;
+}
+/*multi-day event in month view*/
+.dhx_cal_event_line.many_event{
+        background-color:#7a5c99 !important; 
+        color:black !important;
+}
+/*event with fixed time, in month view*/
+.dhx_cal_event_clear.many_event{
+        color:#7a5c99 !important;
+}
