@@ -1,0 +1,1257 @@
+[
+  {
+    "pk": 1, 
+    "model": "timesheet.family", 
+    "fields": {
+      "name": "Smith"
+    }
+  }, 
+  {
+    "pk": 2, 
+    "model": "timesheet.family", 
+    "fields": {
+      "name": "Jones"
+    }
+  }, 
+  {
+    "pk": 3, 
+    "model": "timesheet.family", 
+    "fields": {
+      "name": "Nanny"
+    }
+  }, 
+  {
+    "pk": 1, 
+    "model": "timesheet.person", 
+    "fields": {
+      "first_name": "Alice", 
+      "last_name": "Smith", 
+      "family": 1
+    }
+  }, 
+  {
+    "pk": 2, 
+    "model": "timesheet.person", 
+    "fields": {
+      "first_name": "Bob", 
+      "last_name": "Smith", 
+      "family": 1
+    }
+  }, 
+  {
+    "pk": 3, 
+    "model": "timesheet.person", 
+    "fields": {
+      "first_name": "Junior", 
+      "last_name": "Smith", 
+      "family": 1
+    }
+  }, 
+  {
+    "pk": 4, 
+    "model": "timesheet.person", 
+    "fields": {
+      "first_name": "Cathy", 
+      "last_name": "Wolowitz-Jones", 
+      "family": 2
+    }
+  }, 
+  {
+    "pk": 5, 
+    "model": "timesheet.person", 
+    "fields": {
+      "first_name": "David", 
+      "last_name": "Jones", 
+      "family": 2
+    }
+  }, 
+  {
+    "pk": 6, 
+    "model": "timesheet.person", 
+    "fields": {
+      "first_name": "Emmalyn", 
+      "last_name": "Jones", 
+      "family": 2
+    }
+  }, 
+  {
+    "pk": 7, 
+    "model": "timesheet.person", 
+    "fields": {
+      "first_name": "Jennifer", 
+      "last_name": "Lee", 
+      "family": 3
+    }
+  }, 
+  {
+    "pk": 1, 
+    "model": "timesheet.kid", 
+    "fields": {
+      "person": 3
+    }
+  }, 
+  {
+    "pk": 2, 
+    "model": "timesheet.kid", 
+    "fields": {
+      "person": 6
+    }
+  }, 
+  {
+    "pk": 1, 
+    "model": "timesheet.rate", 
+    "fields": {
+      "effective_date": "2011-05-01 08:00:00", 
+      "single_rate": 15.0, 
+      "double_rate": 19.0
+    }
+  }, 
+  {
+    "pk": 2, 
+    "model": "timesheet.rate", 
+    "fields": {
+      "effective_date": "2011-07-20 00:00:00", 
+      "single_rate": 17.0, 
+      "double_rate": 21.0
+    }
+  }, 
+  {
+    "pk": 1, 
+    "model": "timesheet.w4", 
+    "fields": {
+      "effective_date": "2011-05-01 08:00:00", 
+      "person": 7, 
+      "allowances": 2, 
+      "family": 1
+    }
+  }, 
+  {
+    "pk": 2, 
+    "model": "timesheet.w4", 
+    "fields": {
+      "effective_date": "2011-05-01 08:00:00", 
+      "person": 7, 
+      "allowances": 2, 
+      "family": 2
+    }
+  }, 
+  {
+    "pk": 1, 
+    "model": "timesheet.de4", 
+    "fields": {
+      "effective_date": "2011-05-01 08:00:00", 
+      "person": 7, 
+      "allowances": 0, 
+      "family": 1
+    }
+  }, 
+  {
+    "pk": 2, 
+    "model": "timesheet.de4", 
+    "fields": {
+      "effective_date": "2011-08-07 08:00:00", 
+      "person": 7, 
+      "allowances": 2, 
+      "family": 1
+    }
+  }, 
+  {
+    "pk": 3, 
+    "model": "timesheet.de4", 
+    "fields": {
+      "effective_date": "2011-05-01 08:00:00", 
+      "person": 7, 
+      "allowances": 2, 
+      "family": 2
+    }
+  }, 
+  {
+    "pk": 1, 
+    "model": "timesheet.paycheck", 
+    "fields": {
+      "gross": "111.13", 
+      "end_date": "2011-08-27", 
+      "paid_by": 2, 
+      "note": "", 
+      "amount": "103.52", 
+      "pay_date": "2011-08-29", 
+      "net": "103.52", 
+      "paid_for": 1, 
+      "check_number": 1766, 
+      "start_date": "2011-08-21"
+    }
+  }, 
+  {
+    "pk": 2, 
+    "model": "timesheet.paycheck", 
+    "fields": {
+      "gross": "345", 
+      "end_date": "2011-06-03", 
+      "paid_by": 2, 
+      "note": "", 
+      "amount": "309.24", 
+      "pay_date": "2011-06-08", 
+      "net": "304.77", 
+      "paid_for": 1, 
+      "check_number": 1735, 
+      "start_date": "2011-06-01"
+    }
+  }, 
+  {
+    "pk": 3, 
+    "model": "timesheet.paycheck", 
+    "fields": {
+      "gross": "345", 
+      "end_date": "2011-06-10", 
+      "paid_by": 2, 
+      "note": "", 
+      "amount": "300.58", 
+      "pay_date": "2011-06-15", 
+      "net": "304.77", 
+      "paid_for": 1, 
+      "check_number": 1739, 
+      "start_date": "2011-06-08"
+    }
+  }, 
+  {
+    "pk": 4, 
+    "model": "timesheet.paycheck", 
+    "fields": {
+      "gross": "345", 
+      "end_date": "2011-06-18", 
+      "paid_by": 2, 
+      "note": "", 
+      "amount": "300.58", 
+      "pay_date": "2011-06-17", 
+      "net": "304.77", 
+      "paid_for": 1, 
+      "check_number": 1740, 
+      "start_date": "2011-06-12"
+    }
+  }, 
+  {
+    "pk": 5, 
+    "model": "timesheet.paycheck", 
+    "fields": {
+      "gross": "408", 
+      "end_date": "2011-07-23", 
+      "paid_by": 2, 
+      "note": "", 
+      "amount": "348.23", 
+      "pay_date": "2011-07-25", 
+      "net": "352.4", 
+      "paid_for": 1, 
+      "check_number": 1752, 
+      "start_date": "2011-07-17"
+    }
+  }, 
+  {
+    "pk": 6, 
+    "model": "timesheet.paycheck", 
+    "fields": {
+      "gross": "586.5", 
+      "end_date": "2011-07-30", 
+      "paid_by": 2, 
+      "note": "underpayment corrected with check 1757", 
+      "amount": "479.81", 
+      "pay_date": "2011-08-01", 
+      "net": "484.01", 
+      "paid_for": 1, 
+      "check_number": 1756, 
+      "start_date": "2011-07-24"
+    }
+  }, 
+  {
+    "pk": 7, 
+    "model": "timesheet.paycheck", 
+    "fields": {
+      "gross": "532.75", 
+      "end_date": "2011-08-06", 
+      "paid_by": 2, 
+      "note": "", 
+      "amount": "440.23", 
+      "pay_date": "2011-08-08", 
+      "net": "444.42", 
+      "paid_for": 1, 
+      "check_number": 1759, 
+      "start_date": "2011-07-31"
+    }
+  }, 
+  {
+    "pk": 8, 
+    "model": "timesheet.paycheck", 
+    "fields": {
+      "gross": "231.75", 
+      "end_date": "2011-08-13", 
+      "paid_by": 2, 
+      "note": "", 
+      "amount": "208.9", 
+      "pay_date": "2011-08-15", 
+      "net": "210.93", 
+      "paid_for": 1, 
+      "check_number": 1763, 
+      "start_date": "2011-08-07"
+    }
+  }, 
+  {
+    "pk": 9, 
+    "model": "timesheet.paycheck", 
+    "fields": {
+      "gross": "178.75", 
+      "end_date": "2011-08-20", 
+      "paid_by": 2, 
+      "note": "", 
+      "amount": "166.5", 
+      "pay_date": "2011-08-22", 
+      "net": "166.5", 
+      "paid_for": 1, 
+      "check_number": 1764, 
+      "start_date": "2011-08-14"
+    }
+  }, 
+  {
+    "pk": 10, 
+    "model": "timesheet.paycheck", 
+    "fields": {
+      "gross": "563.88", 
+      "end_date": "2011-09-03", 
+      "paid_by": 5, 
+      "note": "Mileage paid separately", 
+      "amount": "467.37", 
+      "pay_date": "2011-09-06", 
+      "net": "467.37", 
+      "paid_for": 2, 
+      "check_number": 1544, 
+      "start_date": "2011-08-28"
+    }
+  }, 
+  {
+    "pk": 11, 
+    "model": "timesheet.paycheck", 
+    "fields": {
+      "gross": "364.13", 
+      "end_date": "2011-09-03", 
+      "paid_by": 9, 
+      "note": "", 
+      "amount": "319.37", 
+      "pay_date": "2011-09-07", 
+      "net": "319.37", 
+      "paid_for": 1, 
+      "check_number": 1772, 
+      "start_date": "2011-08-28"
+    }
+  }, 
+  {
+    "pk": 1, 
+    "model": "timesheet.event", 
+    "fields": {
+      "text": "", 
+      "kids": [
+        2
+      ], 
+      "start_date": "2011-08-08 08:00:00", 
+      "end_date": "2011-08-08 18:00:00", 
+      "details": ""
+    }
+  }, 
+  {
+    "pk": 2, 
+    "model": "timesheet.event", 
+    "fields": {
+      "text": "", 
+      "kids": [
+        2
+      ], 
+      "start_date": "2011-08-09 08:30:00", 
+      "end_date": "2011-08-09 15:30:00", 
+      "details": ""
+    }
+  }, 
+  {
+    "pk": 3, 
+    "model": "timesheet.event", 
+    "fields": {
+      "text": "", 
+      "kids": [
+        2
+      ], 
+      "start_date": "2011-08-10 08:00:00", 
+      "end_date": "2011-08-10 15:30:00", 
+      "details": ""
+    }
+  }, 
+  {
+    "pk": 4, 
+    "model": "timesheet.event", 
+    "fields": {
+      "text": "", 
+      "kids": [
+        1, 
+        2
+      ], 
+      "start_date": "2011-08-11 08:00:00", 
+      "end_date": "2011-08-11 15:30:00", 
+      "details": ""
+    }
+  }, 
+  {
+    "pk": 5, 
+    "model": "timesheet.event", 
+    "fields": {
+      "text": "", 
+      "kids": [
+        1
+      ], 
+      "start_date": "2011-08-11 15:30:00", 
+      "end_date": "2011-08-11 17:30:00", 
+      "details": ""
+    }
+  }, 
+  {
+    "pk": 6, 
+    "model": "timesheet.event", 
+    "fields": {
+      "text": "", 
+      "kids": [
+        1
+      ], 
+      "start_date": "2011-08-12 08:00:00", 
+      "end_date": "2011-08-12 15:00:00", 
+      "details": ""
+    }
+  }, 
+  {
+    "pk": 7, 
+    "model": "timesheet.event", 
+    "fields": {
+      "text": "", 
+      "kids": [
+        1
+      ], 
+      "start_date": "2011-08-01 08:00:00", 
+      "end_date": "2011-08-01 17:00:00", 
+      "details": ""
+    }
+  }, 
+  {
+    "pk": 8, 
+    "model": "timesheet.event", 
+    "fields": {
+      "text": "", 
+      "kids": [
+        2
+      ], 
+      "start_date": "2011-08-02 10:00:00", 
+      "end_date": "2011-08-02 13:30:00", 
+      "details": ""
+    }
+  }, 
+  {
+    "pk": 9, 
+    "model": "timesheet.event", 
+    "fields": {
+      "text": "", 
+      "kids": [
+        1, 
+        2
+      ], 
+      "start_date": "2011-08-03 08:00:00", 
+      "end_date": "2011-08-03 13:00:00", 
+      "details": ""
+    }
+  }, 
+  {
+    "pk": 10, 
+    "model": "timesheet.event", 
+    "fields": {
+      "text": "", 
+      "kids": [
+        1
+      ], 
+      "start_date": "2011-08-03 13:00:00", 
+      "end_date": "2011-08-03 15:00:00", 
+      "details": ""
+    }
+  }, 
+  {
+    "pk": 11, 
+    "model": "timesheet.event", 
+    "fields": {
+      "text": "", 
+      "kids": [
+        1
+      ], 
+      "start_date": "2011-08-04 08:00:00", 
+      "end_date": "2011-08-04 19:15:00", 
+      "details": ""
+    }
+  }, 
+  {
+    "pk": 12, 
+    "model": "timesheet.event", 
+    "fields": {
+      "text": "", 
+      "kids": [
+        1
+      ], 
+      "start_date": "2011-08-05 07:00:00", 
+      "end_date": "2011-08-05 11:00:00", 
+      "details": ""
+    }
+  }, 
+  {
+    "pk": 13, 
+    "model": "timesheet.event", 
+    "fields": {
+      "text": "Half rate", 
+      "kids": [
+        1
+      ], 
+      "start_date": "2011-08-05 11:00:00", 
+      "end_date": "2011-08-05 15:00:00", 
+      "details": ""
+    }
+  }, 
+  {
+    "pk": 14, 
+    "model": "timesheet.event", 
+    "fields": {
+      "text": "", 
+      "kids": [
+        1
+      ], 
+      "start_date": "2011-07-25 08:00:00", 
+      "end_date": "2011-07-25 17:30:00", 
+      "details": ""
+    }
+  }, 
+  {
+    "pk": 15, 
+    "model": "timesheet.event", 
+    "fields": {
+      "text": "", 
+      "kids": [
+        1
+      ], 
+      "start_date": "2011-07-27 08:00:00", 
+      "end_date": "2011-07-27 15:00:00", 
+      "details": ""
+    }
+  }, 
+  {
+    "pk": 16, 
+    "model": "timesheet.event", 
+    "fields": {
+      "text": "", 
+      "kids": [
+        1
+      ], 
+      "start_date": "2011-07-28 08:00:00", 
+      "end_date": "2011-07-28 19:00:00", 
+      "details": ""
+    }
+  }, 
+  {
+    "pk": 17, 
+    "model": "timesheet.event", 
+    "fields": {
+      "text": "", 
+      "kids": [
+        1
+      ], 
+      "start_date": "2011-07-29 08:00:00", 
+      "end_date": "2011-07-29 15:00:00", 
+      "details": ""
+    }
+  }, 
+  {
+    "pk": 18, 
+    "model": "timesheet.event", 
+    "fields": {
+      "text": "Trial period over!", 
+      "kids": [
+        1
+      ], 
+      "start_date": "2011-07-20 08:00:00", 
+      "end_date": "2011-07-20 17:00:00", 
+      "details": ""
+    }
+  }, 
+  {
+    "pk": 19, 
+    "model": "timesheet.event", 
+    "fields": {
+      "text": "", 
+      "kids": [
+        1
+      ], 
+      "start_date": "2011-07-21 08:00:00", 
+      "end_date": "2011-07-21 15:00:00", 
+      "details": ""
+    }
+  }, 
+  {
+    "pk": 20, 
+    "model": "timesheet.event", 
+    "fields": {
+      "text": "", 
+      "kids": [
+        1
+      ], 
+      "start_date": "2011-07-21 18:00:00", 
+      "end_date": "2011-07-21 19:00:00", 
+      "details": ""
+    }
+  }, 
+  {
+    "pk": 21, 
+    "model": "timesheet.event", 
+    "fields": {
+      "text": "", 
+      "kids": [
+        1
+      ], 
+      "start_date": "2011-07-22 08:00:00", 
+      "end_date": "2011-07-22 15:00:00", 
+      "details": ""
+    }
+  }, 
+  {
+    "pk": 22, 
+    "model": "timesheet.event", 
+    "fields": {
+      "text": "", 
+      "kids": [
+        1
+      ], 
+      "start_date": "2011-06-08 08:00:00", 
+      "end_date": "2011-06-08 15:00:00", 
+      "details": ""
+    }
+  }, 
+  {
+    "pk": 23, 
+    "model": "timesheet.event", 
+    "fields": {
+      "text": "", 
+      "kids": [
+        1
+      ], 
+      "start_date": "2011-06-09 08:00:00", 
+      "end_date": "2011-06-09 17:00:00", 
+      "details": ""
+    }
+  }, 
+  {
+    "pk": 24, 
+    "model": "timesheet.event", 
+    "fields": {
+      "text": "", 
+      "kids": [
+        1
+      ], 
+      "start_date": "2011-06-10 08:00:00", 
+      "end_date": "2011-06-10 15:00:00", 
+      "details": ""
+    }
+  }, 
+  {
+    "pk": 25, 
+    "model": "timesheet.event", 
+    "fields": {
+      "text": "", 
+      "kids": [
+        1
+      ], 
+      "start_date": "2011-06-01 08:00:00", 
+      "end_date": "2011-06-01 15:00:00", 
+      "details": ""
+    }
+  }, 
+  {
+    "pk": 26, 
+    "model": "timesheet.event", 
+    "fields": {
+      "text": "", 
+      "kids": [
+        1
+      ], 
+      "start_date": "2011-06-02 08:00:00", 
+      "end_date": "2011-06-02 17:00:00", 
+      "details": ""
+    }
+  }, 
+  {
+    "pk": 27, 
+    "model": "timesheet.event", 
+    "fields": {
+      "text": "", 
+      "kids": [
+        1
+      ], 
+      "start_date": "2011-06-03 08:00:00", 
+      "end_date": "2011-06-03 15:00:00", 
+      "details": ""
+    }
+  }, 
+  {
+    "pk": 28, 
+    "model": "timesheet.event", 
+    "fields": {
+      "text": "", 
+      "kids": [
+        1
+      ], 
+      "start_date": "2011-06-15 08:00:00", 
+      "end_date": "2011-06-15 15:00:00", 
+      "details": ""
+    }
+  }, 
+  {
+    "pk": 29, 
+    "model": "timesheet.event", 
+    "fields": {
+      "text": "", 
+      "kids": [
+        1
+      ], 
+      "start_date": "2011-06-16 08:00:00", 
+      "end_date": "2011-06-16 17:00:00", 
+      "details": ""
+    }
+  }, 
+  {
+    "pk": 30, 
+    "model": "timesheet.event", 
+    "fields": {
+      "text": "", 
+      "kids": [
+        1
+      ], 
+      "start_date": "2011-06-17 08:00:00", 
+      "end_date": "2011-06-17 15:00:00", 
+      "details": ""
+    }
+  }, 
+  {
+    "pk": 31, 
+    "model": "timesheet.event", 
+    "fields": {
+      "text": "Sylvia in India", 
+      "kids": [], 
+      "start_date": "2011-06-20 00:00:00", 
+      "end_date": "2011-07-18 00:00:00", 
+      "details": ""
+    }
+  }, 
+  {
+    "pk": 32, 
+    "model": "timesheet.event", 
+    "fields": {
+      "text": "", 
+      "kids": [
+        1, 
+        2
+      ], 
+      "start_date": "2011-08-15 08:00:00", 
+      "end_date": "2011-08-15 15:15:00", 
+      "details": ""
+    }
+  }, 
+  {
+    "pk": 33, 
+    "model": "timesheet.event", 
+    "fields": {
+      "text": "", 
+      "kids": [
+        2
+      ], 
+      "start_date": "2011-08-15 15:15:00", 
+      "end_date": "2011-08-15 18:15:00", 
+      "details": ""
+    }
+  }, 
+  {
+    "pk": 34, 
+    "model": "timesheet.event", 
+    "fields": {
+      "text": "", 
+      "kids": [
+        1, 
+        2
+      ], 
+      "start_date": "2011-08-17 08:00:00", 
+      "end_date": "2011-08-17 15:45:00", 
+      "details": ""
+    }
+  }, 
+  {
+    "pk": 35, 
+    "model": "timesheet.event", 
+    "fields": {
+      "text": "", 
+      "kids": [
+        2
+      ], 
+      "start_date": "2011-08-17 15:45:00", 
+      "end_date": "2011-08-17 18:00:00", 
+      "details": ""
+    }
+  }, 
+  {
+    "pk": 36, 
+    "model": "timesheet.event", 
+    "fields": {
+      "text": "", 
+      "kids": [
+        2
+      ], 
+      "start_date": "2011-08-16 08:00:00", 
+      "end_date": "2011-08-16 18:00:00", 
+      "details": ""
+    }
+  }, 
+  {
+    "pk": 37, 
+    "model": "timesheet.event", 
+    "fields": {
+      "text": "", 
+      "kids": [
+        2
+      ], 
+      "start_date": "2011-08-18 08:00:00", 
+      "end_date": "2011-08-18 17:30:00", 
+      "details": ""
+    }
+  }, 
+  {
+    "pk": 38, 
+    "model": "timesheet.event", 
+    "fields": {
+      "text": "", 
+      "kids": [
+        1
+      ], 
+      "start_date": "2011-08-18 18:00:00", 
+      "end_date": "2011-08-18 19:15:00", 
+      "details": ""
+    }
+  }, 
+  {
+    "pk": 39, 
+    "model": "timesheet.event", 
+    "fields": {
+      "text": "", 
+      "kids": [
+        2
+      ], 
+      "start_date": "2011-08-19 09:00:00", 
+      "end_date": "2011-08-19 14:45:00", 
+      "details": ""
+    }
+  }, 
+  {
+    "pk": 40, 
+    "model": "timesheet.event", 
+    "fields": {
+      "text": "", 
+      "kids": [
+        1, 
+        2
+      ], 
+      "start_date": "2011-08-22 08:00:00", 
+      "end_date": "2011-08-22 15:45:00", 
+      "details": ""
+    }
+  }, 
+  {
+    "pk": 41, 
+    "model": "timesheet.event", 
+    "fields": {
+      "text": "", 
+      "kids": [
+        1
+      ], 
+      "start_date": "2011-08-22 15:45:00", 
+      "end_date": "2011-08-22 17:30:00", 
+      "details": ""
+    }
+  }, 
+  {
+    "pk": 42, 
+    "model": "timesheet.event", 
+    "fields": {
+      "text": "", 
+      "kids": [
+        2
+      ], 
+      "start_date": "2011-08-23 08:30:00", 
+      "end_date": "2011-08-23 15:30:00", 
+      "details": ""
+    }
+  }, 
+  {
+    "pk": 43, 
+    "model": "timesheet.event", 
+    "fields": {
+      "text": "", 
+      "kids": [
+        2
+      ], 
+      "start_date": "2011-08-24 08:15:00", 
+      "end_date": "2011-08-24 18:00:00", 
+      "details": ""
+    }
+  }, 
+  {
+    "pk": 44, 
+    "model": "timesheet.event", 
+    "fields": {
+      "text": "", 
+      "kids": [
+        2
+      ], 
+      "start_date": "2011-08-25 08:00:00", 
+      "end_date": "2011-08-25 18:00:00", 
+      "details": ""
+    }
+  }, 
+  {
+    "pk": 45, 
+    "model": "timesheet.event", 
+    "fields": {
+      "text": "", 
+      "kids": [
+        2
+      ], 
+      "start_date": "2011-08-26 09:00:00", 
+      "end_date": "2011-08-26 14:00:00", 
+      "details": ""
+    }
+  }, 
+  {
+    "pk": 46, 
+    "model": "timesheet.event", 
+    "fields": {
+      "text": "", 
+      "kids": [
+        1
+      ], 
+      "start_date": "2011-08-29 08:00:00", 
+      "end_date": "2011-08-29 08:15:00", 
+      "details": ""
+    }
+  }, 
+  {
+    "pk": 47, 
+    "model": "timesheet.event", 
+    "fields": {
+      "text": "", 
+      "kids": [
+        1, 
+        2
+      ], 
+      "start_date": "2011-08-29 08:15:00", 
+      "end_date": "2011-08-29 17:45:00", 
+      "details": ""
+    }
+  }, 
+  {
+    "pk": 48, 
+    "model": "timesheet.event", 
+    "fields": {
+      "text": "", 
+      "kids": [
+        2
+      ], 
+      "start_date": "2011-08-29 17:45:00", 
+      "end_date": "2011-08-29 18:00:00", 
+      "details": ""
+    }
+  }, 
+  {
+    "pk": 49, 
+    "model": "timesheet.event", 
+    "fields": {
+      "text": "", 
+      "kids": [
+        2
+      ], 
+      "start_date": "2011-08-30 09:00:00", 
+      "end_date": "2011-08-30 16:45:00", 
+      "details": ""
+    }
+  }, 
+  {
+    "pk": 50, 
+    "model": "timesheet.event", 
+    "fields": {
+      "text": "Holiday for Evan", 
+      "kids": [], 
+      "start_date": "2011-09-05 00:00:00", 
+      "end_date": "2011-09-06 00:00:00", 
+      "details": ""
+    }
+  }, 
+  {
+    "pk": 51, 
+    "model": "timesheet.event", 
+    "fields": {
+      "text": "Evan till 3", 
+      "kids": [], 
+      "start_date": "2011-09-01 00:00:00", 
+      "end_date": "2011-09-03 00:00:00", 
+      "details": ""
+    }
+  }, 
+  {
+    "pk": 52, 
+    "model": "timesheet.event", 
+    "fields": {
+      "text": "", 
+      "kids": [
+        1, 
+        2
+      ], 
+      "start_date": "2011-08-31 08:00:00", 
+      "end_date": "2011-08-31 17:00:00", 
+      "details": ""
+    }
+  }, 
+  {
+    "pk": 53, 
+    "model": "timesheet.event", 
+    "fields": {
+      "text": "", 
+      "kids": [
+        2
+      ], 
+      "start_date": "2011-08-31 17:00:00", 
+      "end_date": "2011-08-31 17:30:00", 
+      "details": ""
+    }
+  }, 
+  {
+    "pk": 56, 
+    "model": "timesheet.event", 
+    "fields": {
+      "text": "Kate working over the hill today; 8-6PM", 
+      "kids": [
+        2
+      ], 
+      "start_date": "2011-09-20 00:00:00", 
+      "end_date": "2011-09-21 00:00:00", 
+      "details": ""
+    }
+  }, 
+  {
+    "pk": 57, 
+    "model": "timesheet.event", 
+    "fields": {
+      "text": "Holiday; Kate at home", 
+      "kids": [
+        2
+      ], 
+      "start_date": "2011-11-24 00:00:00", 
+      "end_date": "2011-11-26 00:00:00", 
+      "details": ""
+    }
+  }, 
+  {
+    "pk": 58, 
+    "model": "timesheet.event", 
+    "fields": {
+      "text": "Holiday; Kate at home", 
+      "kids": [
+        2
+      ], 
+      "start_date": "2011-12-15 00:00:00", 
+      "end_date": "2012-01-02 00:15:00", 
+      "details": ""
+    }
+  }, 
+  {
+    "pk": 59, 
+    "model": "timesheet.event", 
+    "fields": {
+      "text": "", 
+      "kids": [
+        1, 
+        2
+      ], 
+      "start_date": "2011-09-01 08:00:00", 
+      "end_date": "2011-09-01 15:15:00", 
+      "details": ""
+    }
+  }, 
+  {
+    "pk": 60, 
+    "model": "timesheet.event", 
+    "fields": {
+      "text": "", 
+      "kids": [
+        2
+      ], 
+      "start_date": "2011-09-01 15:15:00", 
+      "end_date": "2011-09-01 18:00:00", 
+      "details": ""
+    }
+  }, 
+  {
+    "pk": 61, 
+    "model": "timesheet.event", 
+    "fields": {
+      "text": "", 
+      "kids": [
+        1
+      ], 
+      "start_date": "2011-09-01 18:00:00", 
+      "end_date": "2011-09-01 19:15:00", 
+      "details": ""
+    }
+  }, 
+  {
+    "pk": 62, 
+    "model": "timesheet.event", 
+    "fields": {
+      "text": "Holiday; Kate at home", 
+      "kids": [
+        2
+      ], 
+      "start_date": "2011-09-05 00:00:00", 
+      "end_date": "2011-09-06 00:00:00", 
+      "details": ""
+    }
+  }, 
+  {
+    "pk": 63, 
+    "model": "timesheet.event", 
+    "fields": {
+      "text": "", 
+      "kids": [
+        2
+      ], 
+      "start_date": "2011-09-02 08:00:00", 
+      "end_date": "2011-09-02 08:30:00", 
+      "details": ""
+    }
+  }, 
+  {
+    "pk": 64, 
+    "model": "timesheet.event", 
+    "fields": {
+      "text": "", 
+      "kids": [
+        1, 
+        2
+      ], 
+      "start_date": "2011-09-02 08:30:00", 
+      "end_date": "2011-09-02 15:00:00", 
+      "details": ""
+    }
+  }, 
+  {
+    "pk": 65, 
+    "model": "timesheet.event", 
+    "fields": {
+      "text": "", 
+      "kids": [
+        2
+      ], 
+      "start_date": "2011-09-02 15:00:00", 
+      "end_date": "2011-09-02 16:30:00", 
+      "details": ""
+    }
+  }, 
+  {
+    "pk": 66, 
+    "model": "timesheet.event", 
+    "fields": {
+      "text": "", 
+      "kids": [
+        2
+      ], 
+      "start_date": "2011-09-06 09:00:00", 
+      "end_date": "2011-09-06 16:00:00", 
+      "details": ""
+    }
+  }, 
+  {
+    "pk": 68, 
+    "model": "timesheet.event", 
+    "fields": {
+      "text": "", 
+      "kids": [
+        1, 
+        2
+      ], 
+      "start_date": "2011-09-07 08:00:00", 
+      "end_date": "2011-09-07 16:00:00", 
+      "details": ""
+    }
+  }, 
+  {
+    "pk": 69, 
+    "model": "timesheet.event", 
+    "fields": {
+      "text": "", 
+      "kids": [
+        2
+      ], 
+      "start_date": "2011-09-07 16:00:00", 
+      "end_date": "2011-09-07 18:00:00", 
+      "details": ""
+    }
+  }, 
+  {
+    "pk": 70, 
+    "model": "timesheet.event", 
+    "fields": {
+      "text": "Doctor appt. for Annabel until 9:30AM.", 
+      "kids": [], 
+      "start_date": "2011-09-13 00:00:00", 
+      "end_date": "2011-09-14 00:00:00", 
+      "details": ""
+    }
+  }, 
+  {
+    "pk": 71, 
+    "model": "timesheet.event", 
+    "fields": {
+      "text": "", 
+      "kids": [
+        1
+      ], 
+      "start_date": "2011-09-08 08:00:00", 
+      "end_date": "2011-09-08 08:30:00", 
+      "details": ""
+    }
+  }, 
+  {
+    "pk": 72, 
+    "model": "timesheet.event", 
+    "fields": {
+      "text": "", 
+      "kids": [
+        1, 
+        2
+      ], 
+      "start_date": "2011-09-08 08:30:00", 
+      "end_date": "2011-09-08 17:15:00", 
+      "details": ""
+    }
+  }, 
+  {
+    "pk": 73, 
+    "model": "timesheet.event", 
+    "fields": {
+      "text": "", 
+      "kids": [
+        2
+      ], 
+      "start_date": "2011-09-08 17:15:00", 
+      "end_date": "2011-09-08 18:30:00", 
+      "details": ""
+    }
+  }
+]
