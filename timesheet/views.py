@@ -459,6 +459,7 @@ def get_week_summary_template_params(today, kids):
             ytd['kid'][index]['fed'] += k['tax'].fed.employee_taxes
             ytd['kid'][index]['cal'] += k['tax'].cal.employee_taxes
             ytd['kid'][index]['net'] += k['tax'].net
+            ytd['kid'][index]['id'] = kids[index].id
             
         # exclude weeks at the beginning of the year if no work done
         if ytd['gross'] > 0:
@@ -492,4 +493,13 @@ def paychecks(request):
     kids = Kid.objects.all()
     template_params = get_week_summary_template_params(today, kids)
     return render_to_response("ytd_paychecks.html", template_params,
+                              context_instance=RequestContext(request))
+
+# Gets HTML summary of quarterly tax information
+@login_required
+def tax_year(request):
+    today = date.today()
+    kids = Kid.objects.all()
+    template_params = get_week_summary_template_params(today, kids)
+    return render_to_response("tax_year.html", template_params,
                               context_instance=RequestContext(request))

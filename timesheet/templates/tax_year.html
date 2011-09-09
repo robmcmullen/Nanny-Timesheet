@@ -1,0 +1,81 @@
+{% extends "scheduler_base.html" %}
+
+{% block title %}Tax Year Summary for {{ year }}{% endblock %}
+
+{% block active %}
+<h2>Employer Tax Summary for {{ year }}</h2>
+
+
+{% for kid in kids %}
+<h3>{{ kid.person.first_name }}</h3>
+
+<table class=summary>
+<tr>
+<th colspan=3>Week</th>
+
+<th colspan=7>Federal</th>
+
+<th colspan=6>California</th>
+
+<th colspan=3>Pay</th>
+</tr>
+<tr><th>Start</th><th>End</th><th>Gross</th>
+
+<th>W4 Allowances</th><th>Subject to Income Tax</th><th>Income Tax</th><th>Employee SS</th><th>Employee Med</th><th>Employer SS</th><th>Employer Med</th>
+
+<th>DE4 Allowances</th><th>Subject to PIT</th><th>PIT</th><th>SDI</th><th>UI</th><th>ETT</th>
+
+<th>Net</th><th>Date</th><th>Amount</th>
+</tr>
+
+{% for week in week_list %}
+  {% for k in week.kid_stats.kid_details %}
+    {% if k.id == kid.id and k.gross > 0 %}
+  <tr>
+  <td>{{ week.start_day|date:"M" }}&nbsp;{{ week.start_day|date:"j" }}</td>
+  <td>{{ week.end_day|date:"M" }}&nbsp;{{ week.end_day|date:"j" }}</td>
+      <td>{{ k.gross }}</td>
+
+      <td>{{ k.tax.fed.allowances }}</td>
+      <td>{{ k.tax.fed.taxible }}</td>
+      <td>{{ k.tax.fed.income }}</td>
+      <td>{{ k.tax.fed.employee_ss }}</td>
+      <td>{{ k.tax.fed.employee_medicare }}</td>
+      <td>{{ k.tax.fed.employer_ss }}</td>
+      <td>{{ k.tax.fed.employer_medicare }}</td>
+
+      <td>{{ k.tax.cal.allowances }}</td>
+      <td>{{ k.tax.cal.taxible }}</td>
+      <td>{{ k.tax.cal.pit }}</td>
+      <td>{{ k.tax.cal.sdi }}</td>
+      <td>{{ k.tax.cal.ui }}</td>
+      <td>{{ k.tax.cal.ett }}</td>
+
+      <td>{{ k.net }}</td>
+      {% if k.paychecks %}
+        {% for paycheck in k.paychecks %}
+          <td>{{ paycheck.pay_date|date:"M" }}&nbsp;{{ paycheck.pay_date|date:"j" }}</td>
+          <td>{{ paycheck.amount }}</td>
+        {% endfor %}
+      {% else %}
+        <td colspan=2></td>
+      {% endif %}
+  </tr>
+    {% endif %}
+  {% endfor %}
+{% endfor %}
+<tr><th colspan=2>Totals:</th>
+{% for k in ytd.kid %}
+  {% if k.id == kid.id %}
+    <td>{{ k.gross }}</td>
+    <td colspan=7></td>
+    <td colspan=6></td>
+    <td>{{ k.net }}</td>
+    <td colspan=2>{{ k.takehome }}</td>
+  {% endif %}
+{% endfor %}
+</tr>
+</table>
+{% endfor %}
+
+{% endblock %}
