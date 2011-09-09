@@ -35,10 +35,10 @@ class W4(models.Model):
         return "%s -> allowances=%s effective %s" % (self.family.name, self.allowances, self.effective_date)
 
     @classmethod
-    def get_current(cls, date):
+    def get_current(cls, date, family):
         # Get the most recent rate
         #print W4.objects.all()
-        rate = W4.objects.filter(effective_date__lte=date).order_by('-effective_date')[0]
+        rate = W4.objects.filter(effective_date__lte=date).filter(family=family).order_by('-effective_date')[0]
         return rate
 
 class DE4(models.Model):
@@ -51,9 +51,9 @@ class DE4(models.Model):
         return "%s -> allowances=%s effective %s" % (self.family.name, self.allowances, self.effective_date)
 
     @classmethod
-    def get_current(cls, date):
+    def get_current(cls, date, family):
         # Get the most recent rate
-        rate = DE4.objects.filter(effective_date__lte=date).order_by('-effective_date')[0]
+        rate = DE4.objects.filter(effective_date__lte=date).filter(family=family).order_by('-effective_date')[0]
         return rate
 
 class Paycheck(models.Model):

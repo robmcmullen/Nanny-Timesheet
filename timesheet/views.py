@@ -136,6 +136,7 @@ class KidStats(object):
             self.combo.extend(combinations(kids, i+1))
             self.build[i] = {'name': kid.person.first_name,
                              'id': kid.id,
+                             'kid': kid,
                              'gross': 0.0,
                              'hours': 0.0,
                              'shared_hours': 0.0,
@@ -200,8 +201,9 @@ class KidStats(object):
             if details:
                 details.sort()
                 entry['details'] = [d[1] for d in details]
-                w4 = W4.get_current(details[0][0])
-                tax = TaxYear(details[0][0], entry['gross'], w4, w4)
+                w4 = W4.get_current(details[0][0], entry['kid'].person.family)
+                de4 = DE4.get_current(details[0][0], entry['kid'].person.family)
+                tax = TaxYear(details[0][0], entry['gross'], w4, de4)
                 
                 entry['net'] = tax.net
                 entry['tax'] = tax
