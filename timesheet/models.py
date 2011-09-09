@@ -28,7 +28,11 @@ class Rate(models.Model):
 class W4(models.Model):
     effective_date = models.DateTimeField()
     allowances = models.IntegerField()
-    person = models.OneToOneField(Person)
+    person = models.ForeignKey(Person)
+    family = models.ForeignKey(Family)
+    
+    def __unicode__(self):
+        return "%s -> allowances=%s effective %s" % (self.family.name, self.allowances, self.effective_date)
 
     @classmethod
     def get_current(cls, date):
@@ -40,7 +44,11 @@ class W4(models.Model):
 class DE4(models.Model):
     effective_date = models.DateTimeField()
     allowances = models.IntegerField()
-    person = models.OneToOneField(Person)
+    person = models.ForeignKey(Person)
+    family = models.ForeignKey(Family)
+    
+    def __unicode__(self):
+        return "%s -> allowances=%s effective %s" % (self.family.name, self.allowances, self.effective_date)
 
     @classmethod
     def get_current(cls, date):
