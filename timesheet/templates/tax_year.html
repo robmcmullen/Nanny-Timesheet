@@ -31,7 +31,7 @@
 {% for week in week_list %}
   {% for k in week.kid_stats.kid_details %}
     {% if k.id == kid.id and k.gross > 0 %}
-  <tr>
+  <tr id="{% cycle 'odd' 'even' %}">
   <td>{{ week.start_day|date:"M" }}&nbsp;{{ week.start_day|date:"j" }}</td>
   <td>{{ week.end_day|date:"M" }}&nbsp;{{ week.end_day|date:"j" }}</td>
       <td>{{ k.gross }}</td>

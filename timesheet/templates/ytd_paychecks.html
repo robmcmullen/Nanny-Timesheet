@@ -20,7 +20,7 @@
 <th>Hours</th><th>Gross</th><th>Net</th>
 </tr>
 {% for week in week_list %}
-    <tr>
+    <tr id="{% cycle 'odd' 'even' %}">
         <td>{{ week.start_day|date:"M" }}&nbsp;{{ week.start_day|date:"j" }}</td>
         <td>{{ week.end_day|date:"M" }}&nbsp;{{ week.end_day|date:"j" }}</td>
 {% if week.kid_stats.kid_details %}
