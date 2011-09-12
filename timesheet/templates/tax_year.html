@@ -69,14 +69,49 @@
 {% for k in ytd.kid %}
   {% if k.id == kid.id %}
     <td>{{ k.gross }}</td>
-    <td colspan=7></td>
-    <td colspan=6></td>
+
+    <td colspan=2></td>
+    <td>{{ k.income }}</td>
+    <td>{{ k.ss }}</td>
+    <td>{{ k.med }}</td>
+    <td colspan=2></td>
+
+    <td colspan=2></td>
+    <td>{{ k.pit }}</td>
+    <td>{{ k.sdi }}</td>
+    <td colspan=2></td>
+
     <td>{{ k.net }}</td>
     <td colspan=2>{{ k.takehome }}</td>
   {% endif %}
 {% endfor %}
 </tr>
 </table>
+
+<p>
+
+<table class=summary>
+<caption>California DE3BHW</caption>
+</tr>
+<tr>
+<th>Quarter</th>
+<th>E.: Total Subject Wages</th>
+<th>F.: PIT Wages</th>
+<th>G.: PIT Withheld</th>
+</tr>
+{% for k in ytd.kid %}
+  {% if k.id == kid.id %}
+{% for q in k.quarter %}
+<tr id="{% cycle 'odd' 'even' %}"><td>Q{{ forloop.counter }}</td><td>{{ q.total_wages }}</td><td>{{ q.pit_wages }}</td><td>{{ q.pit_withheld }}</td></tr>
+{% endfor %}
+  {% endif %}
+{% endfor %}
+</table>
+
+<p>
+<hr>
+<p>
+
 {% endfor %}
 
 {% endblock %}

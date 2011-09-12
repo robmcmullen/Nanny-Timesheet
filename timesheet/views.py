@@ -426,22 +426,30 @@ def iter_weeks(year):
             yield week
             last_sunday = week[0]
 
-def quarter(date):
+def calc_quarter(date):
     return ((date.month - 1) / 3) + 1
 
 # Gets week-by-week list of payments and taxes
 def get_week_summary_template_params(today, kids):
     week_list = []
+    quarter_detail_dict = dict.fromkeys(['total_wages', 'pit_wages', 'pit_withheld'], Decimal("0.0"))
+    kid_detail_dict = dict.fromkeys(['gross', 'income', 'ss', 'med', 'pit', 'sdi', 'net', 'takehome'], Decimal("0.0"))
     ytd = {
         'gross': Decimal("0.0"),
         'net': Decimal("0.0"),
-        'kid': [dict.fromkeys(['gross', 'fed', 'cal', 'net', 'takehome'], Decimal("0.0")) for k in kids],
+        'kid': [dict(kid_detail_dict) for kid in kids],
         }
+    # The quarterly information nested list of dicts must be created this way,
+    # or we end up with shallow copies
+    for index in range(len(kids)):
+        ytd['kid'][index]['quarter'] = [dict(quarter_detail_dict) for q in range(4)]
+    
     for week in iter_weeks(today.year):
         # work week is Sunday - Saturday; payday (i.e.  date of liability) is
         # the subsequent Monday
         events = get_events_range(week[0], week[6] + timedelta(1))
         date_of_liability = week[6] + timedelta(days=2)
+        quarter = calc_quarter(date_of_liability)
         
         paychecks = Paycheck.get_range(week[0], week[6])
         #print paychecks
@@ -449,7 +457,7 @@ def get_week_summary_template_params(today, kids):
         entry = {'start_day': week[0],
                  'end_day': week[6],
                  'date_of_liability': date_of_liability,
-                 'quarter': quarter(date_of_liability),
+                 'quarter': quarter,
                  'kid_stats': stats['kid_stats'],
                  'paychecks': paychecks,
                  }
@@ -466,9 +474,16 @@ def get_week_summary_template_params(today, kids):
                     #print "FOUND PAYCHECK!!!"
                     k['paychecks'].append(p)
                     ytd['kid'][index]['takehome'] += p.amount
+            q = ytd['kid'][index]['quarter'][quarter-1]
+            q['total_wages'] += k['tax'].gross
+            q['pit_wages'] += k['tax'].cal.taxible
+            q['pit_withheld'] += k['tax'].cal.pit
             ytd['kid'][index]['gross'] += k['tax'].gross
-            ytd['kid'][index]['fed'] += k['tax'].fed.employee_taxes
-            ytd['kid'][index]['cal'] += k['tax'].cal.employee_taxes
+            ytd['kid'][index]['income'] += k['tax'].fed.income
+            ytd['kid'][index]['ss'] += k['tax'].fed.employee_ss
+            ytd['kid'][index]['med'] += k['tax'].fed.employee_medicare
+            ytd['kid'][index]['pit'] += k['tax'].cal.pit
+            ytd['kid'][index]['sdi'] += k['tax'].cal.sdi
             ytd['kid'][index]['net'] += k['tax'].net
             ytd['kid'][index]['id'] = kids[index].id
             
