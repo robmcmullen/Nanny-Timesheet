@@ -426,6 +426,9 @@ def iter_weeks(year):
             yield week
             last_sunday = week[0]
 
+def quarter(date):
+    return ((date.month - 1) / 3) + 1
+
 # Gets week-by-week list of payments and taxes
 def get_week_summary_template_params(today, kids):
     week_list = []
@@ -435,12 +438,18 @@ def get_week_summary_template_params(today, kids):
         'kid': [dict.fromkeys(['gross', 'fed', 'cal', 'net', 'takehome'], Decimal("0.0")) for k in kids],
         }
     for week in iter_weeks(today.year):
+        # work week is Sunday - Saturday; payday (i.e.  date of liability) is
+        # the subsequent Monday
         events = get_events_range(week[0], week[6] + timedelta(1))
+        date_of_liability = week[6] + timedelta(days=2)
+        
         paychecks = Paycheck.get_range(week[0], week[6])
         #print paychecks
         stats = get_weekly_stats("stats", events, kids, True)
         entry = {'start_day': week[0],
                  'end_day': week[6],
+                 'date_of_liability': date_of_liability,
+                 'quarter': quarter(date_of_liability),
                  'kid_stats': stats['kid_stats'],
                  'paychecks': paychecks,
                  }

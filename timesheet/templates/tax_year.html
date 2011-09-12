@@ -11,7 +11,7 @@
 
 <table class=summary>
 <tr>
-<th colspan=3>Week</th>
+<th colspan=4>Week</th>
 
 <th colspan=7>Federal</th>
 
@@ -19,11 +19,11 @@
 
 <th colspan=3>Pay</th>
 </tr>
-<tr><th>Start</th><th>End</th><th>Gross</th>
+<tr><th>Start</th><th>End</th><th>Quarter (Date of Liability)</th><th>Gross</th>
 
-<th>W4 Allowances</th><th>Subject to Income Tax</th><th>Income Tax</th><th>Employee SS</th><th>Employee Med</th><th>Employer SS</th><th>Employer Med</th>
+<th>W4 Allow.</th><th>Subject to Income Tax</th><th>Income Tax</th><th>Employee SS</th><th>Employee Med</th><th>Employer SS</th><th>Employer Med</th>
 
-<th>DE4 Allowances</th><th>Subject to PIT</th><th>PIT</th><th>SDI</th><th>UI</th><th>ETT</th>
+<th>DE4 Allow.</th><th>Subject to PIT</th><th>PIT</th><th>SDI</th><th>UI</th><th>ETT</th>
 
 <th>Net</th><th>Date</th><th>Amount</th>
 </tr>
@@ -34,6 +34,7 @@
   <tr id="{% cycle 'odd' 'even' %}">
   <td>{{ week.start_day|date:"M" }}&nbsp;{{ week.start_day|date:"j" }}</td>
   <td>{{ week.end_day|date:"M" }}&nbsp;{{ week.end_day|date:"j" }}</td>
+      <td>Q{{ week.quarter }}&nbsp;({{ week.date_of_liability|date:"M" }}&nbsp;{{ week.date_of_liability|date:"j" }})</td>
       <td>{{ k.gross }}</td>
 
       <td>{{ k.tax.fed.allowances }}</td>
@@ -64,7 +65,7 @@
     {% endif %}
   {% endfor %}
 {% endfor %}
-<tr><th colspan=2>Totals:</th>
+<tr><th colspan=3>Totals:</th>
 {% for k in ytd.kid %}
   {% if k.id == kid.id %}
     <td>{{ k.gross }}</td>
