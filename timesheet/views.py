@@ -231,6 +231,10 @@ def get_events_range(start_date, end_date):
     if DEBUG:
         print "%s -> %s" % (start_date, end_date)
     events = Event.objects.filter(start_date__gte=start_date).filter(end_date__lte=end_date).exclude(text__icontains="holiday").order_by('start_date')
+    # Limit paid events to those less than 24 hours so that events entered on
+    # the monthly calendar don't show up for pay.
+    limit = timedelta(hours=24)
+    events = [e for e in events if e.end_date - e.start_date < limit]
     if DEBUG:
         print "\n".join([str(e) for e in events])
     return events
