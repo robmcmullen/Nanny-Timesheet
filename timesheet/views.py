@@ -495,6 +495,12 @@ def get_week_summary_template_params(today, kids):
         if week[6] >= today:
             break
     
+    # can use a dummy W4 here because all we're interested in for this
+    # summary is the non-income tax related taxes
+    dummy_w4 = W4.objects.all()[0]
+    for index in range(len(kids)):
+        ytd['kid'][index]['ytd_tax'] = TaxYear(today, ytd['kid'][index]['gross'], dummy_w4, dummy_w4)
+        
     template_params = {
         'week_list':week_list,
         'year': today.year,
