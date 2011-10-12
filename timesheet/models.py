@@ -25,6 +25,12 @@ class Rate(models.Model):
     single_rate = models.FloatField()
     double_rate = models.FloatField()
 
+    @classmethod
+    def get_additional_overtime_rate(cls, date):
+        # Get the most recent rate
+        rate = Rate.objects.filter(effective_date__lte=date).order_by('-effective_date')[0]
+        return rate.single_rate / 2.0
+
 class W4(models.Model):
     effective_date = models.DateTimeField()
     allowances = models.IntegerField()

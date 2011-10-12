@@ -33,6 +33,7 @@
 {% for detail in kid.details %}
 <tr><td> {{ detail.day|date:"D M j" }} </td><td> {{ detail.hours }} </td><td> {{ detail.rate }} </td><td> {{ detail.gross }} </td></tr>
 {% endfor %}
+<tr><td><b>OVERTIME</b></th><td> {{ kid.overtime_hours }} </td><td></td><td> {{ kid.overtime_gross }} </td></tr>
 <tr><td><b>TOTAL</b></th><td> {{ kid.hours }} </td><td></td><td> {{ kid.gross }} </td></tr>
 </table>
 <ul>
@@ -56,6 +57,7 @@
 <ul>
 <li>{{ kid.alone_hours }} Alone
 <li>{{ kid.shared_hours }} Shared
+<li>{{ kid.overtime_hours }} Overtime
 </ul>
 <li>Gross = ${{ kid.gross|floatformat:2 }}
 <li>Fed Tax = ${{ kid.tax.fed.employee_taxes|floatformat:2 }}

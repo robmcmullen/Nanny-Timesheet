@@ -4,9 +4,9 @@ when you run "manage.py test".
 
 Replace this with more appropriate tests for your application.
 """
-from datetime import datetime
+from datetime import datetime, date
 
-from django.utils import unittest
+from django.test import TestCase
 from timesheet.models import *
 from timesheet.taxes import *
 
@@ -19,7 +19,7 @@ class MockW4(object):
     def __init__(self, a=1):
         self.allowances = a
 
-class CurrencyTest(unittest.TestCase):
+class CurrencyTest(TestCase):
     def assertCurrency(self, a, b):
         if not isinstance(b, Decimal):
             b = Decimal("%s" % b)
@@ -102,3 +102,14 @@ class CalTaxTestWeekly(CurrencyTest):
                 self.assertCurrency(cal.taxible, taxible)
                 self.assertCurrency(cal.sdi, sdi)
                 self.assertCurrency(cal.pit, pit)
+
+
+class TaxYearTest(TestCase):
+    fixtures = ['2011-09-08']
+    
+    def test_w4(self):
+        today = date.today()
+        family = Family.objects.all()
+        assert len(family) > 0
+        w4 = W4.get_current(today, family[0])
+        assert w4.allowances == 2

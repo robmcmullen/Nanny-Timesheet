@@ -38,6 +38,12 @@ from timesheet.taxes import *
 
 DEBUG = False
 
+
+class Config(object):
+    overtime_starts = datetime(2011, 10, 9)
+
+
+
 def parsedict(querydict):
     """A dhtmlx post is formatted like this:
     
@@ -140,6 +146,8 @@ class KidStats(object):
                              'gross': 0.0,
                              'hours': 0.0,
                              'shared_hours': 0.0,
+                             'overtime_hours': 0.0,
+                             'overtime_gross': 0.0,
                              'details': []
                              }
         if DEBUG:
@@ -201,6 +209,15 @@ class KidStats(object):
             if details:
                 details.sort()
                 entry['details'] = [d[1] for d in details]
+                
+                if details[0][0] >= Config.overtime_starts:
+                    entry['overtime_hours'] = max(entry['hours'] - 40.0, 0.0)
+                    if entry['overtime_hours'] > 0.0 and details[0][0] >= Config.overtime_starts:
+                        additional_ot_rate = Rate.get_additional_overtime_rate(details[0][0])
+                        additional_gross = entry['overtime_hours'] * additional_ot_rate
+                        entry['gross'] += additional_gross
+                        entry['overtime_gross'] = additional_gross
+                
                 w4 = W4.get_current(details[0][0], entry['kid'].person.family)
                 de4 = DE4.get_current(details[0][0], entry['kid'].person.family)
                 tax = TaxYear(details[0][0], entry['gross'], w4, de4)
