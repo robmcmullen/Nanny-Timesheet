@@ -26,10 +26,12 @@ class Rate(models.Model):
     double_rate = models.FloatField()
 
     @classmethod
-    def get_additional_overtime_rate(cls, date):
+    def get_additional_overtime_rates(cls, date):
         # Get the most recent rate
         rate = Rate.objects.filter(effective_date__lte=date).order_by('-effective_date')[0]
-        return rate.single_rate / 2.0
+        # double rate is / 4 because each family is paying half of the
+        # additional overtime rate.
+        return rate.single_rate / 2.0, rate.double_rate / (2 * 2.0)
 
 class W4(models.Model):
     effective_date = models.DateTimeField()
