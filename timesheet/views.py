@@ -544,7 +544,10 @@ def get_week_summary_template_params(today, kids):
 # Gets HTML summary of hours and taxes
 @login_required
 def ytd(request):
-    today = date.today()
+    if 'year' in request.GET:
+        today = date(int(request.GET['year']), 12, 31)
+    else:
+        today = date.today()
     kids = Kid.objects.all()
     template_params = get_week_summary_template_params(today, kids)
     return render_to_response("ytd.html", template_params,
@@ -553,7 +556,10 @@ def ytd(request):
 # Gets HTML summary of payments
 @login_required
 def paychecks(request):
-    today = date.today()
+    if 'year' in request.GET:
+        today = date(int(request.GET['year']), 12, 31)
+    else:
+        today = date.today()
     kids = Kid.objects.all()
     template_params = get_week_summary_template_params(today, kids)
     return render_to_response("ytd_paychecks.html", template_params,
@@ -562,7 +568,10 @@ def paychecks(request):
 # Gets HTML summary of quarterly tax information
 @login_required
 def tax_year(request):
-    today = date.today()
+    if 'year' in request.GET:
+        today = date(int(request.GET['year']), 12, 31)
+    else:
+        today = date.today()
     kids = Kid.objects.all()
     template_params = get_week_summary_template_params(today, kids)
     return render_to_response("tax_year.html", template_params,
