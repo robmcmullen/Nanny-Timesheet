@@ -41,6 +41,7 @@ DEBUG = False
 
 class Config(object):
     overtime_starts = datetime(2011, 10, 9)
+    overtime_correction = datetime(2011, 12, 10)
 
 
 
@@ -209,12 +210,23 @@ class KidStats(object):
             if details:
                 details.sort()
                 entry['details'] = [d[1] for d in details]
+                entry['alone_hours'] = entry['hours'] - entry['shared_hours']
                 
                 if details[0][0] >= Config.overtime_starts:
                     entry['overtime_hours'] = max(entry['hours'] - 40.0, 0.0)
                     if entry['overtime_hours'] > 0.0 and details[0][0] >= Config.overtime_starts:
-                        additional_ot_rate = Rate.get_additional_overtime_rate(details[0][0])
-                        additional_gross = entry['overtime_hours'] * additional_ot_rate
+                        additional_single_ot_rate, additional_double_ot_rate = Rate.get_additional_overtime_rates(details[0][0])
+                        
+                        # Mistake in overtime calculation
+                        if details[0][0] < Config.overtime_correction:
+                            additional_double_ot_rate = additional_single_ot_rate
+                        
+                        # Overtime first comes out of alone hours, then shared
+                        # hours
+                        single_ot_hours = min(entry['alone_hours'], entry['overtime_hours'])
+                        double_ot_hours = min(entry['overtime_hours'] - single_ot_hours, entry['overtime_hours'])
+                        #print "single: %fx%f=%f double: %fx%f=%f" % (single_ot_hours, additional_single_ot_rate, single_ot_hours * additional_single_ot_rate, double_ot_hours, additional_double_ot_rate, double_ot_hours * additional_double_ot_rate)
+                        additional_gross = single_ot_hours * additional_single_ot_rate + double_ot_hours * additional_double_ot_rate
                         entry['gross'] += additional_gross
                         entry['overtime_gross'] = additional_gross
                 
@@ -226,7 +238,6 @@ class KidStats(object):
                 entry['tax'] = tax
                 self.total_net += tax.net
                 self.total_gross += tax.gross
-                entry['alone_hours'] = entry['hours'] - entry['shared_hours']
                 self.kid_details.append(entry)
         if DEBUG:
             print self.kid_details
@@ -533,7 +544,10 @@ def get_week_summary_template_params(today, kids):
 # Gets HTML summary of hours and taxes
 @login_required
 def ytd(request):
-    today = date.today()
+    if 'year' in request.GET:
+        today = date(int(request.GET['year']), 12, 31)
+    else:
+        today = date.today()
     kids = Kid.objects.all()
     template_params = get_week_summary_template_params(today, kids)
     return render_to_response("ytd.html", template_params,
@@ -542,7 +556,10 @@ def ytd(request):
 # Gets HTML summary of payments
 @login_required
 def paychecks(request):
-    today = date.today()
+    if 'year' in request.GET:
+        today = date(int(request.GET['year']), 12, 31)
+    else:
+        today = date.today()
     kids = Kid.objects.all()
     template_params = get_week_summary_template_params(today, kids)
     return render_to_response("ytd_paychecks.html", template_params,
@@ -551,7 +568,10 @@ def paychecks(request):
 # Gets HTML summary of quarterly tax information
 @login_required
 def tax_year(request):
-    today = date.today()
+    if 'year' in request.GET:
+        today = date(int(request.GET['year']), 12, 31)
+    else:
+        today = date.today()
     kids = Kid.objects.all()
     template_params = get_week_summary_template_params(today, kids)
     return render_to_response("tax_year.html", template_params,

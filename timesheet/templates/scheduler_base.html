@@ -20,10 +20,10 @@
 {% if user.is_active %}
 <b>Daycare Timesheet</b> -- Logged in as {{ user.email }}.  <a href="/auth/manage/">[Manage account]</a> <a href="/logout/">[Logout]</a>
 <br>
-<a href="/">[Home]</a>
-<a href="/timesheet/paychecks">[YTD Paychecks]</a>
-<a href="/timesheet/ytd">[YTD Tax Summary]</a>
-<a href="/timesheet/tax_year">[Employer Tax Year Summary]</a>
+[<a href="/">Home</a>]
+[Paychecks: <a href="/timesheet/paychecks">YTD</a> <a href="/timesheet/paychecks?year=2011">2011</a>]
+[Tax Summary: <a href="/timesheet/ytd">YTD</a> <a href="/timesheet/ytd?year=2011">2011</a>]
+[Employer Tax Year Summary: <a href="/timesheet/tax_year">2012</a> <a href="/timesheet/tax_year?year=2011">2011</a>]
 {% else %}
 Welcome {{ user.email }}.  Must be authenticated by the administrator before using the scheduler
 {% endif %}
