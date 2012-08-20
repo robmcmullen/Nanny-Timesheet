@@ -16,7 +16,9 @@
 <li>{{ kid_stats.total_hours }} Hours
 <ul>
 {% for kid in kid_stats.hours %}
+{% if kid.1 %} <!-- Only show if kid has hours -->
 <li>{{ kid.1 }} {{ kid.0 }}
+{% endif %}
 {% endfor %}
 </ul>
 <li>Gross = ${{ kid_stats.total_gross|floatformat:2 }}

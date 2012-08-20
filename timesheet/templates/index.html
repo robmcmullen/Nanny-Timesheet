@@ -69,6 +69,13 @@ var kids = [
 	{ key: {{ kid.id }}, label: "{{ kid.person.first_name }}" },
 {% endfor %}
 ];
+var active_kids = [
+{% for kid in kids %}
+{% if kid.active %}
+	{ key: {{ kid.id }}, label: "{{ kid.person.first_name }}" },
+{% endif %}
+{% endfor %}
+];
 var kid_lookup = {
 {% for kid in kids %}
 	{{ kid.id }}: "{{ kid.person.first_name }}",
@@ -122,7 +129,7 @@ scheduler.locale.labels.section_family = "Nanny For:";
 scheduler.locale.labels.section_description = "Any comments about the day?  (Optional)"; 
 scheduler.locale.labels.new_event = ""; 
 scheduler.config.lightbox.sections=[	
-    { name:"family", height: 72, options: kids, map_to:"kids", type:"multiselect",vertical: true },        
+    { name:"family", height: 72, options: active_kids, map_to:"kids", type:"multiselect",vertical: true },        
     { name:"description", height:30, map_to:"text", type:"textarea", focus:true },
     { name:"time", height:72, type:"time", map_to:"auto"}
 ];

@@ -130,6 +130,9 @@ INSTALLED_APPS = (
     
     # applications
     'timesheet',
+    
+    # schema migration
+#    'south',
 )
 
 # Authentication configuration for django-social-auth

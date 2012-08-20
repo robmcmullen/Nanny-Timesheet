@@ -16,6 +16,7 @@ class Person(models.Model):
 
 class Kid(models.Model):
     person = models.OneToOneField(Person)
+    active = models.BooleanField(default=True)
     
     def __unicode__(self):
         return u"Kid: %d (person=%d) %s %s" % (self.id, self.person.id, self.person.first_name, self.person.last_name)
@@ -107,7 +108,7 @@ class Event(models.Model):
         # Get the most recent rate
         rate = Rate.objects.filter(effective_date__lte=self.start_date).order_by('-effective_date')[0]
         
-        rates = [0.0, rate.single_rate, rate.double_rate]
+        rates = [0.0, rate.single_rate, rate.double_rate, rate.single_rate*2]
         t = self.text.lower()
         if 'half rate' in t or 'half time' in t:
             rates = [r / 2.0 for r in rates]
